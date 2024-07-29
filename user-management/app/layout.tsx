@@ -1,6 +1,16 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import {
+  ClerkProvider,
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+  ClerkLoading,
+  ClerkLoaded,
+} from "@clerk/nextjs";
+import Navbar from "@/components/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +26,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <ClerkProvider>
+          <div className="max-w-4xl mx-auto p-4">
+            <Navbar />
+            <div className="mt-8">{children}</div>
+          </div>
+        </ClerkProvider>
+      </body>
     </html>
   );
 }
