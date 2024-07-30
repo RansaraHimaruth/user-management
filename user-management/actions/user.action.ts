@@ -6,9 +6,8 @@ import connectDB from '@/libs/database';
 export async function createUser(user: any) {
     try {
         await connectDB();
-        const newUser = new User(user);
+        const newUser = await User.create(user);
         return JSON.parse(JSON.stringify(newUser));
-        await newUser.save();
     } catch (error) {
         console.log(error);
     }
