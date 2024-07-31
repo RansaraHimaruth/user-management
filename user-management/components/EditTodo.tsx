@@ -4,7 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
-function EditTopicForm(id: number, title: string, description: string) {
+function EditTopicForm(id: string, title: string, description: string) {
   const router = useRouter();
 
   const [values, setValues] = useState({
