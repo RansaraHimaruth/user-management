@@ -38,7 +38,7 @@ export async function GET(request: any, { params }: { params: any }) {
         await connectDB();
 
       const topic = await Topic.findById(params.id);
-      if (userId == topic.creator) {
+      if (userId == topic.creator._id) {
         return NextResponse.json({ topic }, { status: 200 });
     }
     
