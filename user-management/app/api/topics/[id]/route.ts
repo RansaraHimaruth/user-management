@@ -58,7 +58,8 @@ export async function GET(request: any, { params }: { params: any }) {
     }
 
     const topic = await Topic.findById(params.id);
-    console.log(userId, topic.creator);
+    console.log("user : ", userId, "creator : ", topic.creator);
+    console.log("user : ", user._id, "creator : ", topic.creator.toString());
     // if (topic.creator != userId) {
     //   return NextResponse.json(
     //     { message: "You are not authorized to see this topic" },
