@@ -5,9 +5,7 @@ import { NextResponse } from "next/server";
 export async function PUT(request: any, { params }: { params: any }) {
     try {
         const { title, description } = await request.json();
-        const { id } = params.id;
-        await connectDB();
-        const topic = await Topic.findById(id);
+        const topic = await Topic.findById(params.id);
         topic.title = title;
         topic.description = description;
 
