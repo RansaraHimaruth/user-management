@@ -52,8 +52,13 @@ export async function GET(request: any, { params }: { params: any }) {
     }
     await connectDB();
 
+    const user = await User.findOne({ clerkId: userId });
+    if (!user) {
+      return NextResponse.json({ message: "User not found" }, { status: 404 });
+    }
+
     const topic = await Topic.findById(params.id);
-    if (topic.creator != userId) {
+    if (topic.creator != user._id) {
       return NextResponse.json(
         { message: "You are not authorized to see this topic" },
         { status: 403 }
