@@ -1,39 +1,102 @@
-import EditTodo from '@/components/EditTodo';                                                     
-import React from 'react'
+// import React from 'react';
+// import axios from 'axios';
+// import EditTodo from '@/components/EditTodo';
+
+// async function EditTopic({ params }) {
+//   const { id } = params;
+//   console.log('id: ', id);
+
+//   const getTopicById = async (id) => {
+//     try {
+//       const response = await axios.get(`/api/topics/${id}`, { cache: 'no-store' });
+
+//       if (response.status !== 200) {
+//         throw new Error('Failed to fetch topic');
+//       }
+
+//       return response.data;
+//     } catch (error) {
+//       console.log('Error fetching topic: ', error);
+//       return null;
+//     }
+//   };
+
+//   const topicData = await getTopicById(id);
+
+//   if (!topicData) {
+//     return <div>Error loading topic</div>;
+//   }
+
+//   const { topic } = topicData;
+//   const { title, description } = topic;
+//   console.log('title: ', title);
+//   console.log('description: ', description);
+
+//   return (
+//     <div>
+//       <EditTodo id={id} title={title} description={description} />
+//     </div>
+//   );
+// }
+
+// export default EditTopic;
+
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import EditTodo from '@/components/EditTodo';
 
-async function EditTopic({params}) {
-  
-  const {id} = params;
-  console.log('id: ',id);
+function EditTopic({ params }) {
+  const { id } = params;
+  const [topicData, setTopicData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const getTopicById = async (id) => {
-    try {
-      const response = await axios.get(`/api/topics/${id}` , {cache: "no-store"});
+  useEffect(() => {
+    const getTopicById = async (id) => {
+      try {
+        console.log(`Fetching topic with id: ${id}`);
+        const response = await axios.get(`/api/topics/${id}`, { cache: 'no-store' });
+        console.log('API response:', response);
 
-      if (response.status !== 200) {
-        throw new Error('Failed to fetch topic');
+        if (response.status !== 200) {
+          throw new Error('Failed to fetch topic');
+        }
+
+        setTopicData(response.data);
+      } catch (error) {
+        console.error('Error fetching topic:', error.message);
+        console.error('Error details:', error.response ? error.response.data : 'No response data');
+        setError('Error loading topic');
+      } finally {
+        setLoading(false);
       }
+    };
 
-      return response.data;
+    getTopicById(id);
+  }, [id]);
 
-    } catch (error) {
-      console.log('Error fetching topic: ', error);
-    }
+  if (loading) {
+    return <div>Loading...</div>;
   }
 
-  const {topic} = await getTopicById(id);
-  const {title} = topic.title;
-  const {description} = topic.description;
-  console.log('title: ',title);
-  console.log('description: ',description);
+  if (error) {
+    return <div>{error}</div>;
+  }
 
+  if (!topicData) {
+    return <div>Error loading topic</div>;
+  }
+
+  const { topic } = topicData;
+  const { title, description } = topic;
+  console.log('title: ', title);
+  console.log('description: ', description);
 
   return (
     <div>
-      <EditTodo id={id} title={title} description={description}/>
+      <EditTodo id={id} title={title} description={description} />
     </div>
-  )
+  );
 }
 
-export default EditTopic
+export default EditTopic;
