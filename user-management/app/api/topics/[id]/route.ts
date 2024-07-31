@@ -38,14 +38,12 @@ export async function GET(request: any, { params }: { params: any }) {
         await connectDB();
 
       const topic = await Topic.findById(params.id);
-      if (!topic) {
-        return NextResponse.json({ message: "Topic not found" }, { status: 404 });
+      if (userId == topic.creator) {
+        return NextResponse.json({ topic }, { status: 200 });
     }
-    if (String(userId) !== String(topic.creator)) {
-        return NextResponse.json({ message: "You are not authorized to see this topic" }, { status: 403 });
-    }
-  
-      return NextResponse.json({ topic }, { status: 200 });
+    
+    return NextResponse.json({ message: "You are not authorized to see this topic" }, { status: 403 });
+    //   return NextResponse.json({ topic }, { status: 200 });
     } catch (error) {
       return NextResponse.json(
         { message: "Failed to fetch topic" },
