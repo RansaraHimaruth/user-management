@@ -39,7 +39,7 @@ export async function GET(request: any, { params }: { params: any }) {
 
       const topic = await Topic.findById(params.id);
       if (userId !== topic.creator) {
-        return NextResponse.json({ message: "You are not authorized to update this topic" }, { status: 403 });
+        return NextResponse.json({ message: "You are not authorized to see this topic" }, { status: 403 });
     }
   
       return NextResponse.json({ topic }, { status: 200 });
