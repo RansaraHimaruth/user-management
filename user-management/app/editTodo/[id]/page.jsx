@@ -1,4 +1,4 @@
-import EditTopicForm from '@/components/EditTodo'
+import EditTodo from '@/components/EditTodo'
 import React from 'react'
 import axios from 'axios';
 
