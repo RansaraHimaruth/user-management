@@ -53,11 +53,11 @@ async function EditTopic({params}) {
       if (response.status !== 200) {
         throw new Error('Failed to fetch topic');
       }
+      console.log('response.data: ', response.data);
 
       return response.data;
 
     } catch (error) {
-      console.log(response.data)
       console.log('Error fetching topic: ', error);
       
     }
