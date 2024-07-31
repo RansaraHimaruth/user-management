@@ -4,7 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
-function EditTodo(id: any, title: string, description: string) {
+function EditTodo(id, title, description) {
   const router = useRouter();
 
   const [values, setValues] = useState({
@@ -12,7 +12,7 @@ function EditTodo(id: any, title: string, description: string) {
     description: description,
   });
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!values.title || !values.description) {

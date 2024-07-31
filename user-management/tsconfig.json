@@ -21,6 +21,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "libs/database.js", "app/todo-list/page.jsx", "app/editTodo/[id]/page.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "libs/database.js", "app/todo-list/page.jsx", "app/editTodo/[id]/page.jsx", "components/EditTodo.jsx"],
   "exclude": ["node_modules"]
 }
