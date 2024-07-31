@@ -20,7 +20,7 @@ async function TodoList() {
     }
   };
 
-  const { topics } = await getTopics();
+  const topics: any[] = await getTopics();
   return (
     <>
       {topics.map((topic: any, index: number) => (
