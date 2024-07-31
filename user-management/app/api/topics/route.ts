@@ -38,6 +38,9 @@ export async function GET(request: any) {
         }
         await connectDB();
         const user = await User.findOne({ clerkId: userId });
+        if (!user) {
+            return NextResponse.json({ message: "User not found" }, { status: 404 });
+        }
         const topics = await Topic.find({creator: user._id}).populate("creator");
         return NextResponse.json({topics}, {status: 200});
     } catch (error) {
