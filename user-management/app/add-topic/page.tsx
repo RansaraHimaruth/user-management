@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useSession } from "@clerk/nextjs";
-import { auth, currentUser } from "@clerk/nextjs/server";
 
 function AddTopic() {
   const router = useRouter();
@@ -24,13 +23,15 @@ function AddTopic() {
     }
 
     try {
-      const { userId } = auth();
-      console.log(userId);
-      const user = await currentUser();
+      // const userId = session.user?.id; // Extract user ID from session
+
+      // if (!userId) {
+      //   throw new Error("User not authenticated");
+      // }
 
       const response = await axios.post(
         "http://localhost:3000/api/topics",
-        { ...values, userId },
+        values,
         {
           headers: {
             "Content-Type": "application/json",
