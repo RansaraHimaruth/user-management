@@ -47,6 +47,7 @@
 // }
 
 // export default TodoList;
+'use client'
 
 import React, { useEffect, useState } from "react";
 import RemoveBtn from "@/components/RemoveBtn";
