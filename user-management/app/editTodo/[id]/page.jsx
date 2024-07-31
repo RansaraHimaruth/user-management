@@ -49,7 +49,6 @@ async function EditTopic({params}) {
   const getTopicById = async (id) => {
     try {
       const response = await axios.get(`/api/topics/${id}`);
-       console.log('API response:', response.data);
 
       if (response.status !== 200) {
         throw new Error('Failed to fetch topic');
@@ -66,7 +65,7 @@ async function EditTopic({params}) {
   const topicData = await getTopicById(id);
 
   if (!topicData) {
-    return <div>Error loading topic</div>; // Handle the error case
+    return <div>Error loading topic{topicData}</div>; // Handle the error case
   }
 
   const { topic } = topicData;
