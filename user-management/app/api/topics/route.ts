@@ -37,7 +37,8 @@ export async function GET(request: any) {
             return NextResponse.json({ message: "User not authenticated" }, { status: 401 });
         }
         await connectDB();
-        const topics = await Topic.findById({ clerkId: userId }).populate("creator");
+        const user = await User.findOne({ clerkId: userId });
+        const topics = await Topic.find({creator: user._id}).populate("creator");
         return NextResponse.json({topics}, {status: 200});
     } catch (error) {
         return NextResponse.json({message: "Failed to fetch topics"}, {status: 500});
