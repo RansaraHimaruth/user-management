@@ -14,6 +14,9 @@ export async function PUT(request: any, { params }: { params: any }) {
         }
         await connectDB();
         const topic = await Topic.findById(params.id);
+        if (userId !== topic.creator.toString()) {
+            return NextResponse.json({ message: "You are not authorized to update this topic" }, { status: 403 });
+        }
         topic.title = title;
         topic.description = description;
 
