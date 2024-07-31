@@ -16,13 +16,19 @@ export async function PUT(request: any, { params }: { params: any }) {
       );
     }
     await connectDB();
+
+    const user = await User.findOne({ clerkId: userId });
+    if (!user) {
+      return NextResponse.json({ message: "User not found" }, { status: 404 });
+    }
+
     const topic = await Topic.findById(params.id);
-    // if (userId != topic.creator) {
-    //   return NextResponse.json(
-    //     { message: "You are not authorized to update this topic" },
-    //     { status: 403 }
-    //   );
-    // }
+    if (user._id.toString() != topic.creator.toString()) {
+      return NextResponse.json(
+        { message: "You are not authorized to update this topic" },
+        { status: 403 }
+      );
+    }
     topic.title = title;
     topic.description = description;
 
@@ -65,12 +71,12 @@ export async function GET(request: any, { params }: { params: any }) {
       "creator : ",
       topic.creator.toString()
     );
-    // if (topic.creator != userId) {
-    //   return NextResponse.json(
-    //     { message: "You are not authorized to see this topic" },
-    //     { status: 403 }
-    //   );
-    // }
+    if (user._id.toString() != topic.creator.toString()) {
+      return NextResponse.json(
+        { message: "You are not authorized to see this topic" },
+        { status: 403 }
+      );
+    }
 
     return NextResponse.json({ topic }, { status: 200 });
   } catch (error) {
