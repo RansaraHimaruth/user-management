@@ -4,26 +4,27 @@ import Link from "next/link";
 import { HiPencilAlt } from "react-icons/hi";
 import axios from "axios";
 
-async function TodoList() {
-  const getTopics = async () => {
-    try {
-      const response = await axios.get(`/api/topics` , {cache: "no-store"});
-      console.log("response: ", response.data);
+const getTopics = async () => {
+  try {
+    const response = await axios.get(
+      `/api/topics?timestamp=${new Date().getTime()}`
+    );
+    console.log("response: ", response.data);
 
-      if (response.status !== 200) {
-        throw new Error("Failed to fetch topics");
-      }
-
-      return response.data;
-    } catch (error) {
-      console.log("Error loading topics: ", error);
+    if (response.status !== 200) {
+      throw new Error("Failed to fetch topics");
     }
-  };
 
+    return response.data;
+  } catch (error) {
+    console.log("Error loading topics: ", error);
+  }
+};
+async function TodoList() {
   const { topics } = await getTopics();
   return (
     <>
-      {topics.map((topic, index) => (
+      {topics.map((topic: any, index: number) => (
         <div
           className="p-4 border border-slate-300 my-3 flex justify-between gap-5 items-start"
           key={index}
