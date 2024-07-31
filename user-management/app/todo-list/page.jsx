@@ -7,7 +7,7 @@ import axios from "axios";
 async function TodoList() {
   const getTopics = async () => {
     try {
-      const response = await axios.get(`/api/topics`);
+      const response = await axios.get(`/api/topics` , {cache: "no-store"});
       console.log("response: ", response.data);
 
       if (response.status !== 200) {
@@ -20,10 +20,10 @@ async function TodoList() {
     }
   };
 
-  const topics: any[] = await getTopics();
+  const { topics } = await getTopics();
   return (
     <>
-      {topics.map((topic: any, index: number) => (
+      {topics.map((topic, index) => (
         <div
           className="p-4 border border-slate-300 my-3 flex justify-between gap-5 items-start"
           key={index}
