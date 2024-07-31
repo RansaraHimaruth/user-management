@@ -18,7 +18,6 @@ export async function PUT(request: any, { params }: { params: any }) {
     await connectDB();
     const topic = await Topic.findById(params.id);
     if (userId != topic.creator) {
-      console.log(userId, topic.creator);
       return NextResponse.json(
         { message: "You are not authorized to update this topic" },
         { status: 403 }
@@ -59,12 +58,13 @@ export async function GET(request: any, { params }: { params: any }) {
     }
 
     const topic = await Topic.findById(params.id);
-    if (topic.creator != user._id) {
-      return NextResponse.json(
-        { message: "You are not authorized to see this topic" },
-        { status: 403 }
-      );
-    }
+    console.log(userId, topic.creator);
+    // if (topic.creator != userId) {
+    //   return NextResponse.json(
+    //     { message: "You are not authorized to see this topic" },
+    //     { status: 403 }
+    //   );
+    // }
 
     return NextResponse.json({ topic }, { status: 200 });
   } catch (error) {
