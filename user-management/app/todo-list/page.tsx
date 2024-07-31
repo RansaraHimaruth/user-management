@@ -7,7 +7,9 @@ import axios from "axios";
 async function TodoList() {
   const getTopics = async () => {
     try {
-      const response = await axios.get("/api/topics", { cache: "no-store" });
+      const response = await axios.get(
+        `/api/topics?timestamp=${new Date().getTime()}`
+      );
       console.log("response: ", response.data);
 
       if (response.status !== 200) {
