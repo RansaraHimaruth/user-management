@@ -57,8 +57,9 @@ async function EditTopic({params}) {
       return response.data;
 
     } catch (error) {
+      console.log(response.data)
       console.log('Error fetching topic: ', error);
-      return null; // Return null in case of error
+      
     }
   }
 
