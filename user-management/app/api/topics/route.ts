@@ -31,8 +31,13 @@ export async function POST(request: any) {
 
 export async function GET(request: any) {
     try {
+        const { userId } = auth();
+        console.log(userId);
+        if (!userId) {
+            return NextResponse.json({ message: "User not authenticated" }, { status: 401 });
+        }
         await connectDB();
-        const topics = await Topic.find().populate("creator");
+        const topics = await Topic.find({ clerkId: userId }).populate("creator");
         return NextResponse.json({topics}, {status: 200});
     } catch (error) {
         return NextResponse.json({message: "Failed to fetch topics"}, {status: 500});
