@@ -1,4 +1,4 @@
-import EditTopicForm from '@/components/EditTopicForm'
+import EditTopicForm from '@/components/EditTodo'
 import React from 'react'
 import axios from 'axios';
 
@@ -30,7 +30,7 @@ async function EditTopic({params}) {
 
   return (
     <div>
-      <EditTopicForm id={id} title={title} description={description}/>
+      <EditTodo id={id} title={title} description={description}/>
     </div>
   )
 }
