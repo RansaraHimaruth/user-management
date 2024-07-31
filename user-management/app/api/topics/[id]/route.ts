@@ -14,7 +14,7 @@ export async function PUT(request: any, { params }: { params: any }) {
         }
         await connectDB();
         const topic = await Topic.findById(params.id);
-        if (userId !== topic.creator.toString()) {
+        if (userId !== topic.creator) {
             return NextResponse.json({ message: "You are not authorized to update this topic" }, { status: 403 });
         }
         topic.title = title;
@@ -36,20 +36,11 @@ export async function GET(request: any, { params }: { params: any }) {
             return NextResponse.json({ message: "User not authenticated" }, { status: 401 });
         }
         await connectDB();
-  
-      // Usage: Topic.findById(params.id)
-      // Purpose: Specifically designed to find a document by its _id.
-      // Simpler: Directly takes the _id as an argument, making it more straightforward for this use case.
-      // Performance: Slightly optimized for finding documents by _id.
+
       const topic = await Topic.findById(params.id);
-      if (userId !== topic.creator.toString()) {
+      if (userId !== topic.creator) {
         return NextResponse.json({ message: "You are not authorized to update this topic" }, { status: 403 });
     }
-  
-      //Usage: Topic.findOne({ _id: params.id })
-      // Purpose: More general-purpose, can find a document based on any field or combination of fields.
-      // Flexibility: Allows for more complex queries beyond just the _id.
-      // const topic = await Topic.findOne({ _id: params.id });
   
       return NextResponse.json({ topic }, { status: 200 });
     } catch (error) {
