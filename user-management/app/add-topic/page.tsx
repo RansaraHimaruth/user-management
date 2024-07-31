@@ -29,15 +29,11 @@ function AddTopic() {
       //   throw new Error("User not authenticated");
       // }
 
-      const response = await axios.post(
-        "http://localhost:3000/api/topics",
-        values,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await axios.post("/api/topics", values, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       if (response.status === 201) {
         // router.replace('/');
         location.replace("/");

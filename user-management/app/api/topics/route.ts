@@ -12,7 +12,7 @@ export async function POST(request: any) {
             return NextResponse.json({ message: "User not authenticated" }, { status: 401 });
         }
         await connectDB();
-        const topic = new Topic({ creator: userId, title, description });
+        const topic = new Topic({ userId, title, description });
         await topic.save();
 
         return NextResponse.json({message: "Topic created successfully"}, {status: 201});
