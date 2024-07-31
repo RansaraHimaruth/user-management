@@ -23,7 +23,8 @@ async function EditTopic({params}) {
   }
 
   const {topic} = await getTopicById(id);
-  const {title, description} = topic;
+  const {title} = topic.title;
+  const {description} = topic.description;
   console.log('title: ',title);
   console.log('description: ',description);
 
