@@ -1,10 +1,9 @@
 "use client";
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
-function EditTodo(id, title, description) {
+function EditTodo({ id, title, description }) {
   const router = useRouter();
 
   const [values, setValues] = useState({
@@ -25,7 +24,6 @@ function EditTodo(id, title, description) {
       if (response.status !== 200) {
         throw new Error("Failed to update topic");
       }
-      // router.push('/');
       location.replace("/");
     } catch (error) {
       console.log("Error updating topic: ", error);
