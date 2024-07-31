@@ -29,11 +29,11 @@ export async function POST(request: any) {
     }
 }
 
-export async function GET() {
+export async function GET(request: any) {
     try {
         await connectDB();
-        const topics = await Topic.find();
-        return NextResponse.json(topics, {status: 200});
+        const topics = await Topic.find().populate("creator");
+        return NextResponse.json({topics}, {status: 200});
     } catch (error) {
         return NextResponse.json({message: "Failed to fetch topics"}, {status: 500});
     }

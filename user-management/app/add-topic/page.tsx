@@ -23,12 +23,6 @@ function AddTopic() {
     }
 
     try {
-      // const userId = session.user?.id; // Extract user ID from session
-
-      // if (!userId) {
-      //   throw new Error("User not authenticated");
-      // }
-
       const response = await axios.post("/api/topics", values, {
         headers: {
           "Content-Type": "application/json",
