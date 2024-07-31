@@ -49,16 +49,17 @@ async function EditTopic({params}) {
   const getTopicById = async (id) => {
     try {
       const response = await axios.get(`/api/topics/${id}`);
+      console.log('API response:', response);
 
       if (response.status !== 200) {
         throw new Error('Failed to fetch topic');
       }
-      console.log('response.data: ', response.data);
 
       return response.data;
 
     } catch (error) {
       console.log('Error fetching topic: ', error);
+      console.error('Error details:', error.response ? error.response.data : 'No response data');
       
     }
   }
