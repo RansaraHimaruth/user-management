@@ -3,15 +3,8 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { auth, currentUser } from "@clerk/nextjs/server";
-import User from "@/models/user.modal";
 
 function EditTodo({id, title, description}) {
-
-  const { userId } = auth();
-  if (userId !== currentUser.id) {
-    return <div>Unauthorized</div>;
-  }
   const router = useRouter();
 
   const [values, setValues] = useState({

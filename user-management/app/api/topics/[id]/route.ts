@@ -42,6 +42,9 @@ export async function GET(request: any, { params }: { params: any }) {
       // Simpler: Directly takes the _id as an argument, making it more straightforward for this use case.
       // Performance: Slightly optimized for finding documents by _id.
       const topic = await Topic.findById(params.id);
+      if (userId !== topic.creator.toString()) {
+        return NextResponse.json({ message: "You are not authorized to update this topic" }, { status: 403 });
+    }
   
       //Usage: Topic.findOne({ _id: params.id })
       // Purpose: More general-purpose, can find a document based on any field or combination of fields.
