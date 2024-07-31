@@ -34,6 +34,10 @@ function EditTodo(id: any, title: string, description: string) {
 
   return (
     <>
+      <div>
+        {values.description}
+        {values.title}
+      </div>
       <form onSubmit={handleSubmit} className="flex flex-col gap-3">
         <input
           onChange={(e) => setValues({ ...values, title: e.target.value })}
