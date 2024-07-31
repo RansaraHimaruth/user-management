@@ -8,8 +8,8 @@ function EditTodo(id: any, title: string, description: string) {
   const router = useRouter();
 
   const [values, setValues] = useState({
-    title: title.toString(),
-    description: description.toString(),
+    title: title,
+    description: description,
   });
 
   const handleSubmit = async (e: any) => {
