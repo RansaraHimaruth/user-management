@@ -47,7 +47,7 @@ import EditTodo from '@/components/EditTodo';
 
 function EditTopic({ params }) {
   const { id } = params;
-  const [topicData, setTopicData] = useState(null);
+  const [topicData, setTopicData] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
