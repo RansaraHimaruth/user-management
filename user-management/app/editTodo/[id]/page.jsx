@@ -66,10 +66,6 @@ async function EditTopic({params}) {
 
   const topicData = await getTopicById(id);
 
-  if (!topicData) {
-    return <div>Error loading topic</div>; // Handle the error case
-  }
-
   const { topic } = topicData;
   const { title, description } = topic;
   console.log('title: ', title);
