@@ -14,7 +14,7 @@ function RemoveBtn({ id }) {
       try {
         const response = await axios.delete(`/api/topics?id=${id}`);
         if (response.status === 200) {
-          router.refresh();
+          location.reload();
         }
       } catch (error) {
         console.log("Error deleting topic: ", error);
