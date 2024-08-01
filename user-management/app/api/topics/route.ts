@@ -78,9 +78,8 @@ export async function DELETE(request: any) {
     if (!user) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
-    const url = new URL(request.url);
-    const id = url.searchParams.get("id");
-    const topic = await Topic.findById(id);
+    const { id } = request.query;
+    const topic = await Topic.findByIdAndDelete(id);
     if (!topic) {
       return NextResponse.json({ message: "Topic not found" }, { status: 404 });
     }
@@ -90,7 +89,7 @@ export async function DELETE(request: any) {
         { status: 403 }
       );
     }
-    await topic.findByIdAndDelete(id);
+    // await topic.remove();
     return NextResponse.json(
       { message: "Topic deleted successfully" },
       { status: 200 }
