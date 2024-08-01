@@ -104,7 +104,7 @@ const TodoList = () => {
           </div>
 
           <div className="flex gap-2">
-            {/* <RemoveBtn id={topic._id} /> */}
+            <RemoveBtn id={topic._id} />
             <Link href={`/editTodo/${topic._id}`}>
               <HiPencilAlt size={24} />
             </Link>
