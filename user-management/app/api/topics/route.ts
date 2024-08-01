@@ -83,17 +83,16 @@ export async function DELETE(request: any) {
     // Extract the 'id' query parameter
     const id = url.searchParams.get("id");
     const topic = await Topic.findById(id);
+
     // await Topic.findByIdAndDelete(id);
-    if (!topic) {
-      return NextResponse.json({ message: "Topic not found" }, { status: 404 });
-    }
     if (topic.creator.toString() !== user._id.toString()) {
       return NextResponse.json(
         { message: "You are not authorized to delete this topic" },
         { status: 403 }
       );
     }
-    await topic.findByIdAndDelete(id);
+
+    await Topic.findByIdAndDelete(id);
     return NextResponse.json(
       { message: "Topic deleted successfully" },
       { status: 200 }
