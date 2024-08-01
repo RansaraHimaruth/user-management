@@ -78,7 +78,8 @@ export async function DELETE(request: any) {
     if (!user) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
-    const { id } = request.query;
+    const url = new URL(request.url);
+    const id = url.searchParams.get("id");
     const topic = await Topic.findById(id);
     if (!topic) {
       return NextResponse.json({ message: "Topic not found" }, { status: 404 });
