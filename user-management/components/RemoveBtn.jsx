@@ -11,18 +11,11 @@ function RemoveBtn({ id }) {
     const confirmed = confirm("Are you sure you want to delete this topic?");
 
     if (confirmed) {
-      // try {
-      //   const response = await axios.delete(`/api/topics?id=${id}`);
-      //   if (response.status === 200) {
-      //     router.refresh();
-      //   }
-      // } catch (error) {
-      //   console.log("Error deleting topic: ", error);
-      // }
       try {
-        const response = await fetch(`/api/topics?id=${id}`, {
-          method: "DELETE",
-        });
+        const response = await axios.delete(`/api/topics?id=${id}`);
+        if (response.status === 200) {
+          router.refresh();
+        }
       } catch (error) {
         console.log("Error deleting topic: ", error);
       }
