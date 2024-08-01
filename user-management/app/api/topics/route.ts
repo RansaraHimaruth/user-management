@@ -66,7 +66,7 @@ export async function GET(request: any) {
 export async function DELETE(request: any) {
   try {
     const { userId } = auth();
-    console.log(userId);
+    console.log("Authenticated userId:", userId);
     if (!userId) {
       return NextResponse.json(
         { message: "User not authenticated" },
@@ -93,7 +93,7 @@ export async function DELETE(request: any) {
         { status: 403 }
       );
     }
-    await topic.delete();
+    await topic.findByIdAndDelete(id);
     return NextResponse.json(
       { message: "Topic deleted successfully" },
       { status: 200 }
