@@ -65,34 +65,35 @@ export async function GET(request: any) {
 
 export async function DELETE(request: any) {
   try {
-    // const { userId } = auth();
-    // console.log(userId);
-    // if (!userId) {
-    //   return NextResponse.json(
-    //     { message: "User not authenticated" },
-    //     { status: 401 }
-    //   );
-    // }
+    const { userId } = auth();
+    console.log(userId);
+    if (!userId) {
+      return NextResponse.json(
+        { message: "User not authenticated" },
+        { status: 401 }
+      );
+    }
     await connectDB();
-    // const user = await User.findOne({ clerkId: userId });
-    // if (!user) {
-    //   return NextResponse.json({ message: "User not found" }, { status: 404 });
-    // }
+    const user = await User.findOne({ clerkId: userId });
+    if (!user) {
+      return NextResponse.json({ message: "User not found" }, { status: 404 });
+    }
     const url = new URL(request.url);
 
     // Extract the 'id' query parameter
     const id = url.searchParams.get("id");
-    await Topic.findByIdAndDelete(id);
-    // if (!topic) {
-    //   return NextResponse.json({ message: "Topic not found" }, { status: 404 });
-    // }
-    // if (topic.creator.toString() !== user._id.toString()) {
-    //   return NextResponse.json(
-    //     { message: "You are not authorized to delete this topic" },
-    //     { status: 403 }
-    //   );
-    // }
-    // await topic.remove();
+    const topic = await Topic.findById(id);
+    // await Topic.findByIdAndDelete(id);
+    if (!topic) {
+      return NextResponse.json({ message: "Topic not found" }, { status: 404 });
+    }
+    if (topic.creator.toString() !== user._id.toString()) {
+      return NextResponse.json(
+        { message: "You are not authorized to delete this topic" },
+        { status: 403 }
+      );
+    }
+    await topic.delete();
     return NextResponse.json(
       { message: "Topic deleted successfully" },
       { status: 200 }
