@@ -90,7 +90,7 @@ export async function DELETE(request: any) {
         { status: 403 }
       );
     }
-    await topic.remove();
+    await topic.findByIdAndDelete(id);
     return NextResponse.json(
       { message: "Topic deleted successfully" },
       { status: 200 }
