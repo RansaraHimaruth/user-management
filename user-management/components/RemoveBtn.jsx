@@ -4,7 +4,7 @@ import { HiOutlineTrash } from "react-icons/hi";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
-function RemoveBtn({ id }: { id: any }) {
+function RemoveBtn({ id }) {
   const router = useRouter();
 
   const handleRemove = async () => {
